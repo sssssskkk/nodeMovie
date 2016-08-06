@@ -1,0 +1,186 @@
+extends ../mlayout
+block css
+      script.
+        (function(){
+          var device=window.navigator.userAgent;
+          var reg=/(nokia|iphone|android|ipad|motorola|^mot\-|softbank|foma|docomo|kddi|up\.browser|up\.link|htc|dopod|blazer|netfront|helio|hosin|huawei|novarra|CoolPad|webos|techfaith|palmsource|blackberry|alcatel|amoi|ktouch|nexian|samsung|^sam\-|s[cg]h|^lge|ericsson|philips|sagem|wellcom|bunjalloo|maui|symbian|smartphone|midp|wap|phone|windows ce|iemobile|^spice|^bird|^zte\-|longcos|pantech|gionee|^sie\-|portalmmm|jig\s browser|hiptop|^ucweb|^benq|haier|^lct|opera\s*mobi|opera\*mini|320x320|240x320|176x220)/i
+          if(reg.test(device)){
+          window.location.href='/m/all'
+          }
+        })()
+      link(rel='stylesheet', href='/css/fenlei.css')
+block content
+  include ../includes/header
+  #body.clearfix
+    .wrap.clearfix
+      .nav
+        .msg
+          p 分类
+        .list
+          ul
+            li.clearfix
+              dl
+                dt
+                  h2 分类
+                dd
+                  a(href='/all?movie=all&p=0')
+                    b 全部
+                  a(href='/results?cat=zuixin&p=0')
+                    b 最新
+                  a(href='/results?cat=zuire&p=0')
+                    b 最热
+              em.underline
+            li
+              dl
+                dt
+                  h2 类型
+                  em &gt;
+                dd
+                  a(href='/all?movie=all&p=0')
+                    b 全部
+                  a(href='/results?cat=dongzuo&p=0')
+                    b 动作
+                  a(href='/results?cat=aiqing&p=0')
+                    b 爱情
+                  a(href='/results?cat=gaoxiao&p=0')
+                    b 搞笑
+                  a(href='/results?cat=qinqing&p=0')
+                    b 亲情
+                  a(href='/results?cat=zhuanji&p=0')
+                    b 传记
+                  a(href='/results?cat=zhanzheng&p=0')
+                    b 战争
+                  a(href='/results?cat=kongbu&p=0')
+                    b 恐怖
+                  a(href='/results?cat=xuanyi&p=0')
+                    b 悬疑
+                  a(href='/results?cat=kehuan&p=0')
+                    b 科幻
+                  a(href='/results?cat=maoxian&p=0')
+                    b 冒险
+                  a(href='/results?cat=zainan&p=0')
+                    b 灾难
+                  a(href='/results?cat=juqing&p=0')
+                    b 剧情
+                  a(href='/results?cat=jingsong&p=0')
+                    b 惊悚
+                  a(href='/results?cat=mohuan&p=0')
+                    b 魔幻
+              em.underline
+            li
+              dl
+                dt
+                  h2 年份
+                  em &gt;
+                dd
+                  a(href='/all?movie=all&p=0')
+                    b 全部
+                  a(href='/date?year=2016&p=0')
+                    b 2016
+                  a(href='/date?year=2015&p=0')
+                    b 2015
+                  a.a_hidde(href='/date?year=2014&p=0')
+                    b 2014
+                  a.a_hidde(href='/date?year=2013&p=0')
+                    b 2013
+                  a.a_hidde(href='/date?year=2012&p=0')
+                    b 2012
+                  a.a_hidde(href='/date?year=2011&p=0')
+                    b 2011
+                  a.a_hidde(href='/date?year=2010&p=0')
+                    b 2010
+                  a(href='/date?year=2009&p=0')
+                    b 2009
+                  a(href='/date?year=2008&p=0')
+                    b 2008
+                  a(href='/date?year=2007&p=0')
+                    b 2007
+                  a.a_hidde(href='/date?start=2000&end=2006&p=0')
+                    b 00年代
+                  a.a_hidde(href='/date?start=1990&end=1999&p=0')
+                    b 90年代
+                  a.a_hidde(href='/date?start=1964&end=1989&p=0')
+                    b 更早
+              em.underline
+            li
+              dl
+                dt
+                  h2 地区
+                dd
+                  a(href='/part?choice=gn&p=0')
+                    b 国内
+                  a(href='/part?choice=om&p=0')
+                    b 欧美
+                  a(href='/part?choice=rh&p=0')
+                    b 日韩
+                  a(href='/part?choice=qt&p=0')
+                    b 其他
+              em.underline
+      .container
+          h1 #{keyword}
+          #movie_cont.clearfix
+            if movies && movies.length>0
+              each item in movies
+                .movie-box
+                  dl
+                    dt
+                      a(href="/movie/#{item._id}")
+                        
+                        if item.poster.indexOf('http')> -1
+                          img(src="#{item.poster}", alt="#{item.title}")
+                        else
+                          img(src="/upload/#{item.poster}", alt="#{item.title}")
+                    dd
+                      .e-say
+                        .e-left #{item.title}
+                        .e-right #{item.average}
+                      .e-des
+                        h3 #{item.title}
+                        p #{item.hotword}
+                        p
+                          | 主演:  
+                          span #{item.actors}
+                        p #{item.genres} 
+                          span #{item.year}
+                        span.little-score #{item.average}
+          .btm_nav.clearfix
+            ul
+              li
+                a.page-prev 上一页
+              if totalPage>5
+                  - for (var i=0;i<4;i++){
+                    - if (currentPage == i+1){
+                        li.a-page
+                          a.a_click #{currentPage}
+                    - }
+                    - else { 
+                        li.a-page
+                          a(href="/date?start=#{start}&end=#{end}&p=#{i}") #{i+1}
+                    - }
+                  - }
+                  li.a-page
+                    a ...      
+                  if currentPage == totalPage
+                    li.a-page
+                      a.a_click(href="/date?start=#{start}&end=#{end}&p=#{totalPage-1}") #{totalPage}
+                  else
+                    li.a-page
+                      a(href="/date?start=#{start}&end=#{end}&p=#{totalPage-1}") #{totalPage}
+              else 
+                - for (var i=0;i<totalPage;i++){
+                      - if (currentPage == i+1){
+                          li.a-page
+                            a.a_click #{currentPage}
+                      - }
+                      - else { 
+                          li.a-page
+                            a(href="/date?start=#{start}&end=#{end}&p=#{i}") #{i+1}
+                      - }
+                - }
+              li
+                a.page-next 下一页
+  include ../includes/footer
+block js
+      script(type='text/javascript', src='/js/jquery.min.js')
+      script(type='text/javascript', src='/js/fenlei.js')
+

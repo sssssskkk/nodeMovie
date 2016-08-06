@@ -1,0 +1,70 @@
+doctype html
+html
+  head
+    meta(charset='utf-8')
+    meta(http-equiv='X-UA-Compatible', content='IE=edge')
+    title #{title}
+    meta(name="keywords",content="用户登录")
+    meta(name="description",content="影院前线_用户登录")
+    meta(name='viewport', content='initial-scale=1, maximum-scale=1')
+    link(rel="shortcut icon",type="image/ico",href="/favicon/favicon.ico")
+    meta(name='apple-mobile-web-app-capable', content='yes')
+    meta(name='apple-mobile-web-app-status-bar-style', content='black')
+    script.
+      (function(){
+        var device=window.navigator.userAgent;
+        var reg=/(nokia|iphone|android|ipad|motorola|^mot\-|softbank|foma|docomo|kddi|up\.browser|up\.link|htc|dopod|blazer|netfront|helio|hosin|huawei|novarra|CoolPad|webos|techfaith|palmsource|blackberry|alcatel|amoi|ktouch|nexian|samsung|^sam\-|s[cg]h|^lge|ericsson|philips|sagem|wellcom|bunjalloo|maui|symbian|smartphone|midp|wap|phone|windows ce|iemobile|^spice|^bird|^zte\-|longcos|pantech|gionee|^sie\-|portalmmm|jig\s browser|hiptop|^ucweb|^benq|haier|^lct|opera\s*mobi|opera\*mini|320x320|240x320|176x220)/i
+        if(!reg.test(device)){
+        window.location.href='/signin'
+        }
+      })()
+
+
+    link(rel='stylesheet', href='//g.alicdn.com/msui/sm/0.6.2/css/sm.min.css')
+    link(rel='stylesheet', href='//g.alicdn.com/msui/sm/0.6.2/css/sm-extend.min.css')
+    link(rel='stylesheet', href='/css/mMain.css')
+    link(rel='stylesheet', href='/css/mLogin.css')
+    
+  body
+    .page-group
+      .page.page-current
+        .header
+          .logo-wrap
+            a(href="/m/index")
+            .logo
+              img(src='/images/login_logo.png', alt='logo')
+          p 一个快速获取电影资源的网站
+        // 内容开始
+        .content-wrap
+          .input-container
+            ul
+              li
+                .login-wrap
+                  i.username
+                  span.w_input
+                    input#user(type='text', placeholder='用户名',autocomplete='off')
+              li
+                .login-wrap
+                  i.password
+                  span.w_input
+                    input#psw(type='password', placeholder='密码',autocomplete='off')
+            .click-area
+              .more
+                span.checkbox
+                  input#checkbox(type='checkbox')
+                  i 记住密码
+                span.register
+                  a(href='/m/register') 立即注册
+              #login
+                button#submit(type='button') 登录
+        .footer
+          p @2016
+    script(type='text/javascript', src='//g.alicdn.com/sj/lib/zepto/zepto.min.js', charset='utf-8')
+    script.
+      $.config = {router: false};
+    script(type='text/javascript', src='//g.alicdn.com/msui/sm/0.6.2/js/sm.min.js', charset='utf-8')
+    script(type='text/javascript', src='//g.alicdn.com/msui/sm/0.6.2/js/sm-extend.min.js', charset='utf-8')
+    script(type='text/javascript',src='/js/jquery.min.js')
+    script(type='text/javascript',src='/js/jquery.cookie.js')
+    script(type='text/javascript',src='/js/touch.js')
+    script(type='text/javascript',src='/js/mLogin.js')

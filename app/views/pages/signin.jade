@@ -1,0 +1,57 @@
+doctype html
+html(lang='en')
+  head
+    meta(charset='UTF-8')
+    meta(name="keywords",content="用户登录")
+    meta(name="description",content="影院前线_用户登录")
+    link(rel='shortcut icon',type='image/ico',href='/favicon/favicon.ico')
+    title #{title}
+    script.
+      (function(){
+        var device=window.navigator.userAgent;
+        var reg=/(nokia|iphone|android|ipad|motorola|^mot\-|softbank|foma|docomo|kddi|up\.browser|up\.link|htc|dopod|blazer|netfront|helio|hosin|huawei|novarra|CoolPad|webos|techfaith|palmsource|blackberry|alcatel|amoi|ktouch|nexian|samsung|^sam\-|s[cg]h|^lge|ericsson|philips|sagem|wellcom|bunjalloo|maui|symbian|smartphone|midp|wap|phone|windows ce|iemobile|^spice|^bird|^zte\-|longcos|pantech|gionee|^sie\-|portalmmm|jig\s browser|hiptop|^ucweb|^benq|haier|^lct|opera\s*mobi|opera\*mini|320x320|240x320|176x220)/i
+        if(reg.test(device)){
+            window.location.href='/m/login'
+        }
+      })()
+    link(rel='stylesheet', href='/css/main.css')
+    link(rel='stylesheet', href='/css/login.css')
+  body
+    #header.clearfix
+      .top.clearfix
+        a(href="/")
+          .logo
+       
+    #body.clearfix
+      .login
+        .message
+          .title
+            h1 用户登录
+              a(href='/register') 注册
+          .form.clearfix
+            form(method="POST", action="/signin")
+              .write
+                .input.inputuser
+                  em.usericon 
+                    i.iconfont &#xe617;
+                  label(for='user')
+                    .input_wrap
+                      input#user(type='text',name="user[name]", maxlength='25',autocomplete='off',placeholder="用户名")
+                  span.usertxt.clearfix
+                .input.inputpawd
+                  em.paswicon 
+                      i.iconfont &#xe692;
+                  label(for='psw')
+                    .input_wrap
+                      input#psw(type='password',name="user[password]", maxlength='25',autocomplete='off',placeholder="密码")
+                  span.paswtxt#showinfo 
+              .sign
+                div.keepalive
+                  label
+                    input#checkbox(type="checkbox")
+                    |  记住密码
+                button(type='button' id='submit') 登录   
+    include ../includes/footer
+    script(type='text/javascript',src='/js/jquery.min.js')
+    script(type='text/javascript',src='/js/jquery.cookie.js')
+    script(type='text/javascript',src='/js/login.js')

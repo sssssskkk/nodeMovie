@@ -1,0 +1,29 @@
+{
+  "name": "saber",
+  "version": "1.0",
+  "homepage": "xiaobao.com",
+  "authors": [
+    "saber"
+  ],
+  "description": "my first node web",
+  "main": "app.js",
+  "keywords": [
+    "nodejs",
+    "web",
+    "demo"
+  ],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "public/libs",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "~3.3.2"
+  },
+  "moduleType": []
+}

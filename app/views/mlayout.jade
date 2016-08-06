@@ -1,0 +1,15 @@
+doctype
+html
+  head
+    meta(charset='UTF-8')
+    meta(name="keywords",content="#{keywords}")
+    meta(name="description",content="#{description}")
+    meta(http-equiv='X-UA-Compatible', content='IE=edge')
+   
+    link(rel="shortcut icon",type="image/ico",href="/favicon/favicon.ico")
+    title #{title}
+    include ./includes/head
+    block css
+  body
+    block content
+    block js

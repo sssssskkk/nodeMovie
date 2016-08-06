@@ -1,0 +1,221 @@
+doctype html
+html
+    head
+        meta(charset='utf-8')
+        meta(http-equiv='X-UA-Compatible', content='IE=edge')
+        title #{title}
+        meta(name="keywords",content="#{keywords}")
+        meta(name="description",content="#{description}")
+        meta(name='viewport', content='initial-scale=1, maximum-scale=1')
+        link(rel="shortcut icon",type="image/ico",href="/favicon/favicon.ico")
+        meta(name='apple-mobile-web-app-capable', content='yes')
+        meta(name='apple-mobile-web-app-status-bar-style', content='black')
+        script.
+            (function(){
+                var href=window.location.href.split('/').pop();
+                var device=window.navigator.userAgent;
+                var reg=/(nokia|iphone|android|ipad|motorola|^mot\-|softbank|foma|docomo|kddi|up\.browser|up\.link|htc|dopod|blazer|netfront|helio|hosin|huawei|novarra|CoolPad|webos|techfaith|palmsource|blackberry|alcatel|amoi|ktouch|nexian|samsung|^sam\-|s[cg]h|^lge|ericsson|philips|sagem|wellcom|bunjalloo|maui|symbian|smartphone|midp|wap|phone|windows ce|iemobile|^spice|^bird|^zte\-|longcos|pantech|gionee|^sie\-|portalmmm|jig\s browser|hiptop|^ucweb|^benq|haier|^lct|opera\s*mobi|opera\*mini|320x320|240x320|176x220)/i
+                if(!reg.test(device)){
+                window.location.href='/movie/'+href;
+                }
+            })()
+
+
+        link(rel='stylesheet', href='/css/swiper.min.css')
+        link(rel='stylesheet', href='//g.alicdn.com/msui/sm/0.6.2/css/sm.min.css')
+        link(rel='stylesheet', href='//g.alicdn.com/msui/sm/0.6.2/css/sm-extend.min.css')
+        link(rel='stylesheet', href='/css/mMain.css')
+        link(rel='stylesheet', href='/css/mDetail.css')
+    body
+        .page-group
+
+            .page.page-current
+
+                header#header.bar.bar-nav.row
+                    .logo.col-60
+                        .logo_wrap
+                            span.icon.icon-left#back
+                    .user_box.col-40
+                        .user_wrap.clear-fix
+                            if user
+                                a#top_user.button-nav.button-dark.user-btn.col-30(href='/m/user/#{user._id}',title="#{user.name}")
+                                    span.icon.icon-me
+                                    span#i_user.i-img(data-userId='#{user._id}',data-cols='#{user.collects}')
+                                        if user.pic.length>1
+                                            img(src="/upload/#{user.pic}", alt="用户头像")
+                                        else
+                                            img(src="/images/moren.png", alt="用户头像")
+                            else
+                                a#top_nouser.button-nav.button-dark.user-btn.col-30(href='/m/login',data-user='no')
+                                    span.icon.icon-me
+                                
+               
+                .content#content
+
+
+
+                    .main
+                        .poster(style='width:100%;height:212px;background:url("#{movie.mPoster}") no-repeat top center;background-size:auto 100%;')
+                            .toMain#toMain
+                                a(href="/")
+                                    span.icon.icon-home
+                            .m-shadow
+                        .info
+                            .left
+                                a#top_movie(href='javascript:;',data-movieId='#{movie._id}',data-colpeo='#{movie.colpeople}')
+                                    if movie.poster.indexOf('http') > -1
+                                        img(src="#{movie.poster}", alt="#{movie.title}")
+                                    else
+                                        img(src="/upload/#{movie.poster}", alt="#{movie.title}")
+                            .right
+                                h1 #{movie.title}
+                                p #{movie.hotword}
+                                .info-label
+                                    em #{movie.genres}
+                                    em #{movie.year}
+                                .other
+                                    span 导演：#{movie.director}
+                                    span 主演：#{movie.actors}
+                                .icons
+                                    div.l-icon-msg
+                                        a(href='#comments')
+                                            span.icon.icon-message
+                                            
+                                        a(href='#comments')
+                                            i 评论
+                                    div.l-icon-col#collect
+                                        span.icon.icon-emoji
+                                        a
+                                            i 收藏
+                                    div.l-icon-download
+                                        a.open-about(href="#",data-popup=".popup-about")
+                                            span.icon.icon-download
+                                            
+                                            i 下载地址
+                        .con-list
+                            .summary#summary
+                                .summary-wrap
+                                    p.sum-con #{movie.summary}
+                                        #click_btn 展开
+                            .show-pic
+                                h1 猜你喜欢
+                                .pic-list
+                                    - for (var i=0;i<6;i++){
+                                        a(href='/m/movie/#{likes[i]._id}')
+                                            span.s_img
+                                                if likes[i].poster.indexOf('http') > -1
+                                                    img(src="#{likes[i].poster}", alt="#{likes[i].title}")
+                                                else
+                                                    img(src="/upload/#{likes[i].poster}", alt="#{likes[i].title}")
+                                                em #{likes[i].average}
+                                            span.s_title
+                                                | #{likes[i].title}
+                                        
+                                    -   }
+                            .comment#comments
+                                .comment_title
+                                    h1 评论
+                                .comment_body
+                                    .com_input
+                                        form#form_send(action="#")
+                                            .input_box
+                                                .inputarea
+                                                    input(type="hidden",name="comment[movie]",value="#{movie._id}")
+                                                    if user
+                                                        input(type="hidden",name="comment[from]",value="#{user._id}")
+                                                        input(type="hidden",name="comment[username]",value="#{user.name}")
+                                                    input#com_input(type='text', placeholder='说点什么',name="comment[content]")
+                                                .inputimg
+                                                    if user && user.pic.length>1
+                                                        img(src="/upload/#{user.pic}", alt="用户头像")
+                                                    else
+                                                        img(src="/images/moren.png", alt="用户头像")
+
+                                            .input_send#input_send
+                                                span.count#count 还可以输入
+                                                    i 140
+                                                    | 个字
+                                                a#i_cancel.i_cancel(href='javascript:;') 取消
+                                                a#i_send.i_send.alert-text(href='javascript:;') 发送
+                                    .com_all
+                                        .com_hot
+                                            .comment-title
+                                                h1 全部评论
+                                            .comment-list#comment_list
+                                                    
+                                                if comments && comments.length>0
+                                                        each item in comments
+                                                            dl.com-box(data-pripeople='#{item.pripeople}')
+                                                                dt.com-img(data-commentId='#{item._id}')
+                                                                    if item.from.pic.length>1
+                                                                        img(src="/upload/#{item.from.pic}", alt="#{item.from.username}")
+                                                                    else
+                                                                        img(src="/images/moren.png", alt="#{item.from.username}")
+                                                                dd.com-wrap
+                                                                    h1.com-title #{item.from.name}
+                                                                    p.com-con #{item.content}
+                                                                    .com-zan
+                                                                        span.time(time="#{moment(item.meta.createAt)}")
+                                                                        .zan
+                                                                            i.peo-prise 赞
+                                                                            span.icon.icon-star
+                                                                    //- .com_new 
+
+                                                else
+                                            
+                                                    div.not-comment 目前还没有评论~
+
+                                        if comments && comments.length>5
+                                            .click_more#click_more 点击加载更多
+                                            .comment-new
+
+                                                .comment-title
+                                                    h1 最新评论
+                                                .comment-list#commen_new
+                                                    
+                                                        each itm in newcomments
+                                                            dl.com-box(data-pripeople='#{itm.pripeople}')
+                                                                dt.com-img(data-commentId='#{itm._id}')
+                                                                    if itm.from.pic.length>1
+                                                                        img(src="/upload/#{itm.from.pic}", alt="#{itm.from.username}")
+                                                                    else
+                                                                        img(src="/images/moren.png", alt="#{itm.from.username}")
+                                                                dd.com-wrap
+                                                                    h1.com-title #{itm.from.name}
+                                                                    p.com-con #{itm.content}
+                                                                    .com-zan
+                                                                        span.time(time="#{moment(itm.meta.createAt)}") #{moment(itm.meta.createAt)}
+                                                                        .zan
+                                                                            i.peo-prise 赞
+                                                                            span.icon.icon-star
+                                                                    .com_new
+
+                    
+                    .footer
+
+                        p 2016 © 由阿里云提供服务
+
+                .popup.popup-about
+                    .content-block
+                        .card
+                            .card-header #{movie.title}
+                            .card-content
+                                .card-content-inner 
+                                    if movie.url && movie.url.length>0
+                                        span #{movie.url}
+                                    else
+                                        span 暂时没找到资源...
+
+                            .card-footer &nbsp;
+                                a.close-popup(href='#') 关闭
+        script(type='text/javascript', src='//g.alicdn.com/sj/lib/zepto/zepto.min.js', charset='utf-8')
+        script.
+            $.config = {router: false};
+        script(type='text/javascript', src='//g.alicdn.com/msui/sm/0.6.2/js/sm.min.js', charset='utf-8')
+        script(type='text/javascript', src='//g.alicdn.com/msui/sm/0.6.2/js/sm-extend.min.js', charset='utf-8')
+        script(src='/js/swiper.min.js')
+        script(src='/js/date.js')
+        script(src='/js/touch.js')
+        script(src='/js/date.js')
+        script(src='/js/mDetail.js')
+                   

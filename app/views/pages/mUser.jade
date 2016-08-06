@@ -1,0 +1,149 @@
+doctype html
+html
+    head
+        meta(charset='utf-8')
+        meta(http-equiv='X-UA-Compatible', content='IE=edge')
+        title #{title}
+        meta(name='viewport', content='initial-scale=1, maximum-scale=1')
+        link(rel="shortcut icon",type="image/ico",href="/favicon/favicon.ico")
+        meta(name='apple-mobile-web-app-capable', content='yes')
+        meta(name='apple-mobile-web-app-status-bar-style', content='black')
+        script.
+            (function(){
+                var href=window.location.href.split('/').pop();
+                var device=window.navigator.userAgent;
+                var reg=/(nokia|iphone|android|ipad|motorola|^mot\-|softbank|foma|docomo|kddi|up\.browser|up\.link|htc|dopod|blazer|netfront|helio|hosin|huawei|novarra|CoolPad|webos|techfaith|palmsource|blackberry|alcatel|amoi|ktouch|nexian|samsung|^sam\-|s[cg]h|^lge|ericsson|philips|sagem|wellcom|bunjalloo|maui|symbian|smartphone|midp|wap|phone|windows ce|iemobile|^spice|^bird|^zte\-|longcos|pantech|gionee|^sie\-|portalmmm|jig\s browser|hiptop|^ucweb|^benq|haier|^lct|opera\s*mobi|opera\*mini|320x320|240x320|176x220)/i
+                if(!reg.test(device)){
+                window.location.href='/user/'+href;
+                }
+            })()
+
+
+        link(rel='stylesheet', href='/css/swiper.min.css')
+        link(rel='stylesheet', href='//g.alicdn.com/msui/sm/0.6.2/css/sm.min.css')
+        link(rel='stylesheet', href='//g.alicdn.com/msui/sm/0.6.2/css/sm-extend.min.css')
+        link(rel='stylesheet', href='/css/mMain.css')
+        link(rel='stylesheet', href='/css/mUser.css')
+    body
+        .page-group
+            .page.page-current
+                header.bar.bar-nav
+                    a.icon.icon-left.pull-left#back
+                    a.icon.icon-menu.pull-right#menu
+                .user-box
+                    .user-menu
+                        div.toHome
+                            a(href="/m/index") 首页
+                        div.toLogout
+                            a(href="/m/logout") 退出
+
+                    .user-img
+                        .img-detail#user(data-userId='#{user._id}')
+                            if user.pic.length>1
+                              img(src="/upload/#{user.pic}", alt="#{user.name}")
+                            else
+                              img(src="/images/moren.png", alt="#{user.name}")
+                    p.user-name
+                        | #{user.name}
+                .detail.content-padded
+                    .buttons-tab
+                        a.tab-link.active.button(href='#my-love') 我的收藏
+                        a.tab-link.button(href='#my-info') 个人信息
+                    div
+                        .tabs
+                            #my-love.tab.active
+                                div
+                                    .list-block.media-list
+
+                                        if user.collects && user.collects.length>0
+                                            ul
+                                                each item in user.collects
+                                                    li
+                                                        a.every.item-link.item-content(href='/m/movie/#{item._id}')
+                                                            .item-media
+                                                                img.one-img(src='#{item.poster}')
+                                                            .item-inner
+                                                                .item-title-row
+                                                                    .item-title #{item.title}
+                                                                .item-subtitle.one-actors 主演：#{item.actors}
+                                        
+                                        else
+                                            .blank 空空如也，快去添加收藏吧
+                                        if loves && loves>20
+                                            .click_more#click_more 点击加载更多
+
+                                            
+                            #my-info.tab
+                                .content-block
+                                    .list-block
+                                        form#update_form(action="#",method='post',name='update')
+                                            ul
+                                                li
+                                                    .item-content
+                                                        .item-inner
+                                                            .item-title.label 用户名
+                                                            .item-input
+                                                                p#input_username #{user.name}
+                                                
+                                                if user.age
+                                                    li
+                                                        .item-content
+                                                            .item-inner
+                                                                .item-title.label 年龄
+                                                                .item-input
+                                                                    input#input_age(type='text', placeholder='#{user.age}')
+                                                else
+                                                    li
+                                                        .item-content
+                                                            .item-inner
+                                                                .item-title.label 年龄
+                                                                .item-input
+                                                                    input#input_age(type='text', placeholder='请填写年龄')
+
+                                                if user.sex
+                                                    li
+                                                        .item-content
+                                                            .item-inner
+                                                                .item-title.label 性别
+                                                                .item-input
+                                                                    input#input_sex(type='text', placeholder='#{user.sex}')
+                                                else
+                                                    li
+                                                        .item-content
+                                                            .item-inner
+                                                                .item-title.label 性别
+                                                                .item-input
+                                                                    input#input_sex(type='text', placeholder='请填写性别')
+
+                                                if user.email
+                                                    li
+                                                        .item-content
+                                                            .item-inner
+                                                                .item-title.label 邮箱
+                                                                .item-input
+                                                                    input#input_email(type='email', placeholder='#{user.email}')
+                                                else
+                                                    li
+                                                        .item-content
+                                                            .item-inner
+                                                                .item-title.label 邮箱
+                                                                .item-input
+                                                                    input#input_email(type='email', placeholder='请填写邮箱')
+
+                                            
+
+                                            
+                                    .btn
+                                        .submit-wrap
+                                            a#submit.button.button-big.button-fill.button-success(href='javascript:;') 修改
+                                        .submit-wrap
+                                            a#logout.button.button-big.button-fill.button-danger(href='/m/logout') 退出
+        script(type='text/javascript', src='//g.alicdn.com/sj/lib/zepto/zepto.min.js', charset='utf-8')
+        script.
+            $.config = {router: false};
+        script(type='text/javascript', src='//g.alicdn.com/msui/sm/0.6.2/js/sm.min.js', charset='utf-8')
+        script(type='text/javascript', src='//g.alicdn.com/msui/sm/0.6.2/js/sm-extend.min.js', charset='utf-8')
+        script(type='text/javascript',src='/js/swiper.min.js')
+        script(type='text/javascript',src='/js/touch.js')
+        script(type='text/javascript',src='/js/mUser.js')
+                                                      

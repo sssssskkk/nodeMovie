@@ -1,0 +1,15 @@
+extends ../layout
+block content
+  .container
+    .row
+        form.form-horizontal(method="post", action="/admin/category")
+          .form-group
+             label.col-sm-2.control-label(for="inputCategory") 分类
+             .col-sm-10
+                input#inputCategory.form-control(type="text",name="category[name]",value=category.name)
+          .form-group
+             label.col-sm-2.control-label(for="inputFindId") findId
+             .col-sm-10
+                input#inputFindId.form-control(type="text",name="category[findid]",value=category.findid)
+          .form-group
+            button.btn(type="submit") 录入

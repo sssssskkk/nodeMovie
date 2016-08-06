@@ -1,0 +1,106 @@
+extends ../mlayout
+block css
+      script.
+        (function(){
+          var href=window.location.href.split('/').pop();
+          var device=window.navigator.userAgent;
+          var reg=/(nokia|iphone|android|ipad|motorola|^mot\-|softbank|foma|docomo|kddi|up\.browser|up\.link|htc|dopod|blazer|netfront|helio|hosin|huawei|novarra|CoolPad|webos|techfaith|palmsource|blackberry|alcatel|amoi|ktouch|nexian|samsung|^sam\-|s[cg]h|^lge|ericsson|philips|sagem|wellcom|bunjalloo|maui|symbian|smartphone|midp|wap|phone|windows ce|iemobile|^spice|^bird|^zte\-|longcos|pantech|gionee|^sie\-|portalmmm|jig\s browser|hiptop|^ucweb|^benq|haier|^lct|opera\s*mobi|opera\*mini|320x320|240x320|176x220)/i
+          if(reg.test(device)){
+          window.location.href='/m/index';
+          }
+        })()
+      link(rel='stylesheet', href='/css/home.css')
+block content 
+  include ../includes/header
+  #body.clearfix
+    .slide-wrap
+      #slide
+        ul.pic
+          if banners && banners.length>0
+            each ban in banners
+              li
+                .banner-info
+                  h1 #{ban.title}
+                  h2 #{ban.hotword}
+                a(href='/movie/#{ban._id}')
+                  span(style="background:url(#{ban.bannerpic}) no-repeat top center")
+        .num-wrap
+          ul.num
+        .btn.slide_l
+          i.iconfont &#xe643;
+        .btn.slide_r
+          i.iconfont &#xe677;
+    .bottom_nav
+        .ul-wrap
+          ul
+            li
+              a(href='/results?cat=zuixin&p=0') 最新
+            li
+              a(href='/results?cat=zuire&p=0') 热门
+            li
+              a(href='/part?choice=gn&p=0') 国内
+            li
+              a(href='/part?choice=om&p=0') 欧美
+            li
+              a(href='/part?choice=rh&p=0') 日韩
+            li
+              a(href='/all?movie=all&p=0') 年份
+            li
+              a(href='/results?cat=dongzuo&p=0') 动作
+            li
+              a(href='/results?cat=aiqing&p=0') 爱情
+            li
+              a(href='/results?cat=gaoxiao&p=0') 搞笑
+            li
+              a(href='/results?cat=qinqing&p=0') 亲情
+            li
+              a(href='/results?cat=kehuan&p=0') 科幻
+            li
+              a(href='/results?cat=zhanzheng&p=0') 战争
+            li
+              a(href='/results?cat=kongbu&p=0') 恐怖
+            li
+              a(href='/results?cat=mohuan&p=0') 魔幻
+            li
+              a(href='/results?cat=juqing&p=0') 剧情
+            li
+              a(href='/results?cat=jingsong&p=0') 惊悚
+    .div
+      i#toTop.iconfont &#xe694;
+      if categories.length > 0
+        each cat in categories
+          .content
+            .wrap
+              .con_title
+                h1
+                  a(href='/results?cat=#{cat.cat}&p=0') #{cat.name}
+                .more
+                  a(href='/results?cat=#{cat.cat}&p=0') 更多
+              .ctn_container
+                ul.ctn_list.clearfix
+                  if cat.movies && cat.movies.length>0
+                    - for (var i = 0; i < 5; ++i) {
+                      li
+                        .ctn_body
+                          .ctn_wrap
+                            .pic
+                              dl
+                                dt
+                                  a(href="/movie/#{cat.movies[i]._id}")
+                                    if cat.movies[i].poster.indexOf('http')> -1
+                                      img(src="#{cat.movies[i].poster}", alt="#{cat.movies[i].title}")
+                                    else
+                                      img(src="/upload/#{cat.movies[i].poster}", alt="#{cat.movies[i].title}")
+                            .con_text
+                              dl
+                                dt #{cat.movies[i].title}
+                                dd 
+                                  span #{cat.movies[i].hotword}
+                                div.score-box
+                                  span #{cat.movies[i].average}
+                    - }
+  include ../includes/footer
+block js
+      script(src='/js/jquery.min.js')
+      script(src='/js/home.js')
+

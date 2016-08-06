@@ -1,0 +1,17 @@
+doctype html
+html
+  head
+    meta(charset='utf-8')
+    link(rel="shortcut icon",type="image/ico",href="/favicon/favicon.ico")
+    title #{title}
+    include includes/adminHead
+  body
+    div#banner
+      a(href='/admin/movie/list') 电影列表
+      a(href='/admin/movie/new') 电影录入
+      a(href='/admin/user/list') 用户列表
+    block content
+
+
+
+

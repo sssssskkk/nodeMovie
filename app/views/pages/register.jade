@@ -1,0 +1,59 @@
+doctype html
+html(lang='en')
+  head
+    meta(charset='UTF-8')
+    meta(name="keywords",content="用户注册")
+    meta(name="description",content="影院前线_用户注册")
+    link(rel="shortcut icon",type="image/ico",href="favicon/favicon.ico")
+    title #{title}
+    script.
+      (function(){
+        var device=window.navigator.userAgent;
+        var reg=/(nokia|iphone|android|ipad|motorola|^mot\-|softbank|foma|docomo|kddi|up\.browser|up\.link|htc|dopod|blazer|netfront|helio|hosin|huawei|novarra|CoolPad|webos|techfaith|palmsource|blackberry|alcatel|amoi|ktouch|nexian|samsung|^sam\-|s[cg]h|^lge|ericsson|philips|sagem|wellcom|bunjalloo|maui|symbian|smartphone|midp|wap|phone|windows ce|iemobile|^spice|^bird|^zte\-|longcos|pantech|gionee|^sie\-|portalmmm|jig\s browser|hiptop|^ucweb|^benq|haier|^lct|opera\s*mobi|opera\*mini|320x320|240x320|176x220)/i
+        if(reg.test(device)){
+        window.location.href='/m/register'
+        }
+      })()
+    link(rel='stylesheet', href='/css/main.css')
+    link(rel='stylesheet', href='/css/register.css')
+  body
+    #header
+      .top.clearfix
+         a(href="/")
+          .logo
+    #body.clearfix
+      .register
+        .message
+          .title
+              h1 用户注册
+                a(href="/signin") 登录
+          .form
+            form#regis_form(method="POST",action='/register')
+              .write
+                p.userstatus#userstatus
+                .input
+                  label(for='user')
+                    .input_wrap.clearfix
+                      input#user(type='text', name='user[name]',placeholder="用户名",autocomplete='off')
+                  span.span-txt 8-20位字符，可使用中文、字母、数字和符号
+                .input
+                  label(for='psw')
+                    .input_wrap.clearfix
+                      input#psw(type='password', name='user[password]',placeholder="密码",autocomplete='off')
+                  span.span-txt 8-20位字符，推荐字母、数字和符号组合的密码
+                .input
+                  label(for='rpsw')
+                    .input_wrap.clearfix
+                      input#rpsw(type='password', name='user[rpassword]',placeholder="确认密码",autocomplete='off')
+                  span.span-txt 再次输入密码
+                .input
+                  label(for='eMail')
+                    .input_wrap.clearfix
+                      input#eMail(type='text', name='user[email]',placeholder="电子邮箱",autocomplete="off")
+                  span.span-txt 请输入格式正确的电子邮箱
+              .sign
+                input#submit(type='submit', value='注册')
+    include ../includes/footer
+    script(type='text/javascript',src='/js/jquery.min.js')
+    script(type='text/javascript',src='/js/register.js')
+    

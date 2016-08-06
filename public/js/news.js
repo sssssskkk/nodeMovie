@@ -1,0 +1,1 @@
+$(document).ready(function(){function a(){$(window).scroll(function(){var c=$(window).scrollTop();var b=$(".left").outerHeight()-$(".right").outerHeight();if(c>1008&&c<b+1008){$(".right").css({position:"absolute",right:"0",top:c-1008+"px"})}else{if(c<1008){$(".right").css({position:"absolute",right:"0px",top:"0px"})}}})}a()});

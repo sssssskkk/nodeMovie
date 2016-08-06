@@ -1,0 +1,36 @@
+doctype html
+html(lang='en')
+  head
+    meta(charset='UTF-8')
+    link(rel='shortcut icon',type='image/ico',href='/favicon/favicon.ico')
+    meta(name="keywords",content="修改密码")
+    meta(name="description",content="影院前线_用户修改自己的密码")
+    title #{title}
+    link(rel='stylesheet',href='/css/chanpswd.css')
+  body
+    .header
+      a(href="/")
+        img(src="/images/restlogo.png", alt="返回首页")
+    .wrap
+      .rest-wrap
+        .restbox
+          .resbox-hd
+            h1 重设密码
+            p
+              span(data-id='#{user._id}') 账号：#{user.name}
+              | #{username}
+          form(action='javascript:;', method='post' id='rest')
+            .box
+              input(type='password', name='password', value='',placeholder='请输入旧的密码')
+              p 
+            .box
+              input(type='password', name='newpassword', value='',placeholder='请输入新密码')
+              p 8-20位字符，推荐字母、数字和符号组合的密码
+            .box
+              input(type='password', name='againpassword', value='',placeholder='请再次确认密码')
+              p 请再次输入密码
+            .box
+              input#send(type='button', value='提交')
+    include ../includes/footer
+  script(src='/js/jquery.min.js')
+  script(src='/js/restpswd.js')

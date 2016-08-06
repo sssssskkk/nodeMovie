@@ -1,0 +1,193 @@
+doctype html
+html
+  head
+    meta(charset='utf-8')
+    meta(http-equiv='X-UA-Compatible', content='IE=edge')
+    title #{title}
+    meta(name="keywords",content="#{keywords}")
+    meta(name="description",content="#{description}")
+    meta(name='viewport', content='initial-scale=1, maximum-scale=1')
+    link(rel="shortcut icon",type="image/ico",href="/favicon/favicon.ico")
+    meta(name='apple-mobile-web-app-capable', content='yes')
+    meta(name='apple-mobile-web-app-status-bar-style', content='black')
+    script.
+      (function(){
+        var device=window.navigator.userAgent;
+        var reg=/(nokia|iphone|android|ipad|motorola|^mot\-|softbank|foma|docomo|kddi|up\.browser|up\.link|htc|dopod|blazer|netfront|helio|hosin|huawei|novarra|CoolPad|webos|techfaith|palmsource|blackberry|alcatel|amoi|ktouch|nexian|samsung|^sam\-|s[cg]h|^lge|ericsson|philips|sagem|wellcom|bunjalloo|maui|symbian|smartphone|midp|wap|phone|windows ce|iemobile|^spice|^bird|^zte\-|longcos|pantech|gionee|^sie\-|portalmmm|jig\s browser|hiptop|^ucweb|^benq|haier|^lct|opera\s*mobi|opera\*mini|320x320|240x320|176x220)/i
+        if(!reg.test(device)){
+        window.location.href='/'
+        }
+      })()
+
+
+
+
+    link(rel='stylesheet', href='/css/swiper.min.css')
+    link(rel='stylesheet', href='//g.alicdn.com/msui/sm/0.6.2/css/sm.min.css')
+    link(rel='stylesheet', href='//g.alicdn.com/msui/sm/0.6.2/css/sm-extend.min.css')
+    link(rel='stylesheet', href='/css/mMain.css')
+    link(rel='stylesheet', href='/css/mIndex.css')
+
+  body
+   
+    .page-group
+      .page.page-current#page
+        a#to-Up(href='javascript:;')
+          span.icon.icon-up
+        header#header.bar.bar-nav.row
+          .logo.col-60
+            a#toIndex(href='/m/index')
+            .logo_wrap
+          .user_box.col-40
+            .user_wrap.clear-fix
+              if user
+                a#top_user.button-nav.button-dark.user-btn.col-30(href='/m/user/#{user._id}',title="#{user.name}")
+                  span.icon.icon-me
+                  span.i-img
+                    if user.pic.length>1
+                      img(src="/upload/#{user.pic}", alt="用户头像")
+                    else
+                      img(src="/images/moren.png", alt="用户头像")
+              else
+                a#top_nouser.button-nav.button-dark.user-btn.col-30(href='/m/login')
+                  span.icon.icon-me
+              a#top_cate.button-nav.button-dark.user-btn.col-40(href='javascript:;')
+                span.icon.icon-menu
+        #mask.border-box.hide
+          .mask_fenlei
+            h2.mask-caption 分类
+            ul.list-fenlei
+              li
+                a(href='/m/all') 全部
+              li
+                a(href='/m/movies?cat=zuixin') 最新
+              li
+                a(href='/m/movies?cat=zuire') 最热
+          .mask_cate
+            h2.mask-caption 类型
+            ul.list-cate
+              li
+                a(href='/m/all') 全部
+              li
+                a(href='/m/movies?cat=dongzuo') 动作
+              li
+                a(href='/m/movies?cat=aiqing') 爱情
+              li
+                a(href='/m/movies?cat=gaoxiao') 搞笑
+              li
+                a(href='/m/movies?cat=qinqing') 亲情
+              li
+                a(href='/m/movies?cat=zhuanji') 传记
+              li
+                a(href='/m/movies?cat=zhanzheng') 战争
+              li
+                a(href='/m/movies?cat=kongbu') 恐怖
+              li
+                a(href='/m/movies?cat=xuanyi') 悬疑
+              li
+                a(href='/m/movies?cat=kehuan') 科幻
+              li
+                a(href='/m/movies?cat=maoxian') 冒险
+              li
+                a(href='/m/movies?cat=zainan') 灾难
+              li
+                a(href='/m/movies?cat=juqing') 剧情
+              li
+                a(href='/m/movies?cat=jingsong') 惊悚
+              li
+                a(href='/m/movies?cat=mohuan') 魔幻
+          .mask_year
+            h2.mask-caption 年份
+            ul.list-year
+              li
+                a(href='/m/all') 全部
+              li
+                a(href='/m/date?year=2016') 2016
+              li
+                a(href='/m/date?year=2015') 2015
+              li
+                a(href='/m/date?year=2014') 2014
+              li
+                a(href='/m/date?year=2013') 2013
+              li
+                a(href='/m/date?year=2012') 2012
+              li
+                a(href='/m/date?year=2011') 2011
+              li
+                a(href='/m/date?year=2010') 2010
+              li
+                a(href='/m/date?year=2009') 2009
+              li
+                a(href='/m/date?year=2008') 2008
+              li
+                a(href='/m/date?year=2007') 2007
+              li
+                a(href='/m/date?start=2000&end=2006') 00年代
+              li
+                a(href='/m/date?start=1990&end=1999') 90年代
+              li
+                a(href='/m/date?start=1964&end=1989') 更早
+          .mask_part
+            h2.mask-caption.border-box 地区
+            ul.list-part
+              li
+                a(href='/m/part?choice=gn') 国内
+              li
+                a(href='/m/part?choice=om') 欧美
+              li
+                a(href='/m/part?choice=rh') 日韩
+              li
+                a(href='/m/part?choice=qt') 其它
+        .bar.bar-header-secondary
+          form#search-form(method='GET',action='/m/search',name='form')
+            #search-bar.searchbar.row
+              .search-input.col-85
+                input#search(name='q',type='search', placeholder='输入关键字...',autocomplete='off')
+              .button.button-fill.button-primary.col-15#search-btn
+                input(type='submit',value='')
+                span.icon.icon-search
+        .content#content
+          #slider.swiper-container
+            .swiper-wrapper
+              if banners && banners.length>0
+                each ban in banners
+                  .swiper-slide
+                    a(href='/m/movie/#{ban._id}')
+                      span.slide-img(style='width:100%;height:100%;display:block;background:url("#{ban.mBanner}") no-repeat top center;background-size:auto 100%')
+              
+            #slide-banner.swiper-pagination
+          .movie-content.border-box.clear-fix
+            if categories.length > 0
+              each cat in categories
+                if cat.movies && cat.movies.length>0
+                  section.cate-box
+                    h2.cate-title.border-box #{cat.name}
+                    .cate-body.clear-fix
+                      - for (var i = 0; i < 4; ++i) {
+                        a(href='/m/movie/#{cat.movies[i]._id}')
+                          span.border-box.a_img
+                            if cat.movies[i].poster.indexOf('http')> -1
+                              i.img_container(style="background-image: url('#{cat.movies[i].mPoster}'); background-repeat: no-repeat; background-size:auto 100%; background-position: center center")
+                            else
+                              i.img_container(style="background-image: url('/upload/#{cat.movies[i].poster}'); background-repeat: no-repeat; background-size: 100%; background-position: 0 30%")
+
+                          span.cate-tit.border-box
+                            h2 #{cat.movies[i].title}
+                            p #{cat.movies[i].hotword}
+                      - }
+
+                  
+                    
+            
+
+          .footer
+            p 2016 © 由阿里云提供服务
+    script(type='text/javascript', src='//g.alicdn.com/sj/lib/zepto/zepto.min.js', charset='utf-8')
+    script.
+      $.config = {router: false};
+    script(type='text/javascript', src='//g.alicdn.com/msui/sm/0.6.2/js/sm.min.js', charset='utf-8')
+    script(type='text/javascript', src='//g.alicdn.com/msui/sm/0.6.2/js/sm-extend.min.js', charset='utf-8')
+    script(type='text/javascript',src='/js/swiper.min.js')
+    script(type='text/javascript',src='/js/touch.js')
+    script(type='text/javascript',src='/js/mIndex.js')
+

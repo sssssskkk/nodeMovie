@@ -1,0 +1,253 @@
+extends ../mlayout
+
+block css
+      script.
+        (function(){
+          var href=window.location.href.split('/').pop();
+          var device=window.navigator.userAgent;
+          var reg=/(nokia|iphone|android|ipad|motorola|^mot\-|softbank|foma|docomo|kddi|up\.browser|up\.link|htc|dopod|blazer|netfront|helio|hosin|huawei|novarra|CoolPad|webos|techfaith|palmsource|blackberry|alcatel|amoi|ktouch|nexian|samsung|^sam\-|s[cg]h|^lge|ericsson|philips|sagem|wellcom|bunjalloo|maui|symbian|smartphone|midp|wap|phone|windows ce|iemobile|^spice|^bird|^zte\-|longcos|pantech|gionee|^sie\-|portalmmm|jig\s browser|hiptop|^ucweb|^benq|haier|^lct|opera\s*mobi|opera\*mini|320x320|240x320|176x220)/i
+          if(reg.test(device)){
+            window.location.href='/m/movie/'+href;
+          }
+          })()
+      link(rel='stylesheet', href='/css/movie.css')
+block content
+  #contai-info
+    include ../includes/header
+    #body.clearfix
+      .container
+        .info-wrap
+          .con_search.clearfix
+            .left
+              a#mov(href='/movie/#{movie._id}',data-movid="#{movie._id}",data-colpeople="#{status}")
+
+                if movie.poster.indexOf('http')> -1
+                  img(src="#{movie.poster}", alt="#{movie.title}")
+                else
+                  img(src="/upload/#{movie.poster}", alt="#{movie.title}")
+            .right
+              .info
+                h1 #{movie.title}
+                .collect
+                  a#collect(href="javascript:;") 收藏
+                  span(style="background:url(/images/s_no.png) no-repeat top center")
+                .info-director
+                  p
+                    | 导演：
+                    span #{movie.director}
+                  p
+                .info-actor
+                  .info-actor-txt 主演：
+                  ul
+                    each actor in actorinfo
+                      li
+                        em
+                          img(src='#{actor.pic}', alt='#{actor.name}',title="#{actor.name}")
+                        span(title="#{actor.name}") #{actor.name}
+                .info-other
+                  p
+                    span #{movie.genres}
+                    i |
+                    span #{movie.year}
+                    i |
+                    span #{movie.country}
+                .look
+                  span
+              .more-movie-box
+                .more-movie
+                  h2 热门电影
+                  if hots && hots.length>0
+                  ul
+                    each hot in hots
+                      li
+                        a(href='/movie/#{hot._id}') #{hot.title}
+                        span #{hot.average}
+      .other
+        .summary
+          h1
+            |  剧情介绍
+          .oter-box1.clearfix
+            span
+              img(src='#{showpic[0]}', alt='图片介绍')
+            .box1
+          .oter-box2.clearfix
+            ul
+              li.pic1
+                span
+                  img(src='#{showpic[1]}')
+              li.pic2
+                span
+                  img(src='#{showpic[2]}')
+              li.pic3
+                span
+                  img(src='#{showpic[3]}')
+              li.pic4
+                span
+                  img(src='#{showpic[4]}')
+              li.pic5
+                span
+                  img(src='#{showpic[5]}')
+          .oter-box3.clearfix
+            p #{movie.summary}
+        .fixed
+          span
+            img(src='#{showpic[6]}')
+      .download
+        h1 下载地址
+        .movie-url
+          span.title url链接：
+          input#mov-url(type='text', value='#{movie.url}')
+        span.copy#copy_btn(data-clipboard-action="copy",data-clipboard-target="#mov-url") 复制
+      .bottom
+        #comment.clearfix
+          .com-wrap
+            h1 影片评价
+            if user
+              .has-signin
+                .com-user
+                  .com-user-pic
+                    a(href='javascript:;')
+                      if user.pic.length>1
+                        img(src="/upload/#{user.pic}", alt="#{user.name}")
+                      else
+                        img(src="/images/moren.png", alt="#{user.name}")
+                  p.con-name
+                    span #{user.name}
+                .input-msg
+                  form#commentForm(method="POST",action="/user/comment")
+                    input(type="hidden",name="comment[movie]",value="#{movie._id}")
+                    if user
+                      input(type="hidden",name="comment[from]",value="#{user._id}")
+                      input(type="hidden",name="comment[username]",value="#{user.name}")
+                    textarea(name="comment[content]")
+                    .con-btn
+                      button(type='button',class='user-has-sign') 提交
+            else
+              .not-signin
+                .com-user
+                  .com-user-pic
+                    a(href='javascript:;')
+                      img(src='/images/moren.png', alt='默认头像')
+                  p.con-name
+                    a#com_login(href='javascript:;') 登录
+                    a#com_register(href='/register') 注册
+                .input-msg
+                  form(action='#', method='POST')
+                    textarea(name='msg')
+                    .con-btn
+                      button(type='submit', disabled='' ,class='user-not-sign') 提交
+          #contents
+            #cont-choice
+              a.select#select_all(href='javascript:;',data-select='all') 全部
+              a#select_new(href='javascript:;',data-select='new') 最新
+            .contents-list#cont-list
+              if comments && comments.length>0
+                each item in comments
+                  dl.clearfix(id="comment#{item._id}",data-pripeo="#{item.pripeople}")
+                    dt
+                      a(href="javascript:;",data-cid="#{item._id}",data-tid="#{item.from._id}")
+                        if item.from.pic.length>1
+                          img(src="/upload/#{item.from.pic}", alt="#{item.from.username}")
+                        else
+                          img(src="/images/moren.png", alt="#{item.from.username}")
+                    dd
+                      .all-info
+                        .content-info
+                          .content-title
+                            a(href='javascript:;') #{item.from.name}
+                            span.updateNow(time="#{moment(item.meta.createAt)}")
+                          .content-txt
+                            .con-txt
+                              p #{item.content}
+                        .fun.reply-btn
+                          a(href='javascript:;',class='com-reply') 
+                          a(href='javascript:;',class='com-prise',has_click=0,data-priId='#{item._id}',onclick='prise(this)') 
+                        .reply-node(show=0)
+                          dl.first-node
+                            dt
+                              if user && user.pic.length>1
+                                img(src="/upload/#{user.pic}", alt="#{user.name}")
+                              else
+                                img(src="/images/moren.png", alt="默认头像")
+                            dd
+                              form.replyForm.clearfix(method="POST",action="/user/comment")
+                                input(type="hidden",name="comment[movie]",value="#{movie._id}")
+                                if user
+                                  input(type="hidden",name="comment[from]",value="#{user._id}")
+                                textarea(name="comment[content]",class='comonput')
+                                #con-btn.con-btn.clearfix
+                                  button(type='button',class='rpl-reply') 发送
+                          if item.reply && item.reply.length>0
+                            each reply in item.reply
+                              .new-reply-box
+                                .new-box-left
+                                  a(href="javascript:;",data-cid="#{item._id}",data-tid="#{reply.from._id}")
+                                    if reply.from.pic.length>1
+                                      img(src="/upload/#{reply.from.pic}", alt="#{reply.from.name}")
+                                    else
+                                      img(src="/images/moren.png", alt="#{reply.from.name}")
+                                .new-box-right
+                                  
+                                  div.one-rpl-cont
+                                    a(href='javascript:;') #{reply.from.name}
+                                    | ：#{reply.content}
+                                  .loadup
+                                    span.clearfix.replyTime(time="#{moment(reply.meta.createAt)}")
+                                    span.clearfix
+                                        button.two-rpl-btn(title='回复',data-cid="#{item._id}",data-tid="#{reply.from._id}")
+              else
+                .not-comment#not_comment 目前还没有评论~
+            #click_more(data-select="all") 点击加载更多
+      #more-movie.clearfix
+        div.clearfix
+          h1 猜你喜欢
+          div(clas='movie-wrap clearfix')
+            each like in likes
+              .mov-box
+                dl
+                  dt
+                    a(href='/movie/#{like._id}')
+                      if like.poster.indexOf('http')> -1
+                        img(src="#{like.poster}", alt="#{like.title}")
+                      else
+                        img(src="/upload/#{like.poster}", alt="#{like.title}")
+                  dd
+                    p #{like.title}
+    include ../includes/footer
+
+block js
+      script(src='/js/jquery.min.js')
+      script(src='/js/jquery.cookie.js')
+      script(src='/js/clipboard.min.js')
+      script(src='/js/date.js')
+      script(src='/js/detail.js')  
+      script.
+        function prise(a){
+          var that=a;
+          var userId=$('#login_username').data('colid');
+          var commentId=a.getAttribute('data-priId');
+          var movieId=$('#mov').data('movid');
+            $.ajax({
+                type:'POST',
+                url:'/user/prise',
+                data:{
+                    priUserId:userId,
+                    priCommentId:commentId,
+                    priMovieId:movieId
+                },
+                cache:false,
+                dataType:'json',
+                success:function(data){
+                    if(parseInt(data.pri)==1){
+                        that.style.background="url('/images/heart.png') no-repeat 3px 2px"
+                        that.style.backgroundSize="24px 24px"
+                    }else{
+                        that.style.background="url('/images/ico.png') no-repeat 0 -860px"
+                    }
+                }
+            })
+        }
+
+
+
+

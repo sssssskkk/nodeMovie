@@ -1,0 +1,163 @@
+doctype html
+html
+    head
+        meta(charset='utf-8')
+        meta(http-equiv='X-UA-Compatible', content='IE=edge')
+        title #{title}
+        meta(name="keywords",content="#{keywords}")
+        meta(name="description",content="#{description}")
+        meta(name='viewport', content='initial-scale=1, maximum-scale=1')
+        link(rel="shortcut icon",type="image/ico",href="/favicon/favicon.ico")
+        meta(name='apple-mobile-web-app-capable', content='yes')
+        meta(name='apple-mobile-web-app-status-bar-style', content='black')
+        script.
+           (function(){
+               var device=window.navigator.userAgent;
+               var reg=/(nokia|iphone|android|ipad|motorola|^mot\-|softbank|foma|docomo|kddi|up\.browser|up\.link|htc|dopod|blazer|netfront|helio|hosin|huawei|novarra|CoolPad|webos|techfaith|palmsource|blackberry|alcatel|amoi|ktouch|nexian|samsung|^sam\-|s[cg]h|^lge|ericsson|philips|sagem|wellcom|bunjalloo|maui|symbian|smartphone|midp|wap|phone|windows ce|iemobile|^spice|^bird|^zte\-|longcos|pantech|gionee|^sie\-|portalmmm|jig\s browser|hiptop|^ucweb|^benq|haier|^lct|opera\s*mobi|opera\*mini|320x320|240x320|176x220)/i
+               if(!reg.test(device)){
+               window.location.href='/all'
+               }
+           })()
+    
+
+        link(rel='stylesheet', href='/css/swiper.min.css')
+        link(rel='stylesheet', href='//g.alicdn.com/msui/sm/0.6.2/css/sm.min.css')
+        link(rel='stylesheet', href='//g.alicdn.com/msui/sm/0.6.2/css/sm-extend.min.css')
+        link(rel='stylesheet', href='/css/mMain.css')
+        link(rel='stylesheet', href='/css/mCate.css')
+        
+    body
+        .page-group
+            .page.page-current
+                a#to-Up(href='javascript:;')
+                    span.icon.icon-up
+                header#header.bar.bar-nav.row
+                    .logo.col-60
+                        a#toIndex(href='/m/index')
+                        .logo_wrap
+                    .user_box.col-40
+                        .user_wrap.clear-fix
+                            if user
+                                a#top_user.button-nav.button-dark.user-btn.col-30(href='/m/user/#{user._id}',title="#{user.name}")
+                                    span.icon.icon-me
+                                    span#i_user.i-img(data-userId='#{user._id}',data-cols='#{user.collects}')
+                                        if user.pic.length>1
+                                            img(src="/upload/#{user.pic}", alt="用户头像")
+                                        else
+                                            img(src="/images/moren.png", alt="用户头像")
+                            else
+                                a#top_nouser.button-nav.button-dark.user-btn.col-30(href='/m/login',data-user='no')
+                                    span.icon.icon-me
+
+                            a#top_cate.button-nav.button-dark.user-btn.col-40(href='javascript:;')
+                                span.icon.icon-search
+                #search_con.searchbar.row.mov
+                    form#search-form(method='GET',action='/m/search',name='form')
+                        .search-input.search_input.col-85
+                            input#search(name='q',type='search', placeholder='输入关键字...',autocomplete='off')
+                        div.button.button-fill.search_button.button-primary.col-15
+                            input(type='submit',value='')
+                            span.icon.icon-search
+                .content#content
+                    .group-tap
+                        ul
+                            li
+                                a.active(href='/m/all') 全部
+                            li
+                                a(href='/m/movies?cat=zuixin') 最新
+                            li
+                                a(href='/m/movies?cat=zuire') 最热
+                    #choice.choice
+                        .choice-info 类型:
+                        .swiper-type
+                            .swiper-wrapper
+                                .swiper-slide
+                                    a.active(href='/m/all') 全部
+                                .swiper-slide
+                                    a(href='/m/movies?cat=dongzuo') 动作
+                                .swiper-slide
+                                    a(href='/m/movies?cat=aiqing') 爱情
+                                .swiper-slide
+                                    a(href='/m/movies?cat=gaoxiao') 搞笑
+                                .swiper-slide
+                                    a(href='/m/movies?cat=juqing') 剧情
+                                .swiper-slide
+                                    a(href='/m/movies?cat=kehuan') 科幻
+                                .swiper-slide
+                                    a(href='/m/movies?cat=zhanzheng') 战争
+                                .swiper-slide
+                                    a(href='/m/movies?cat=kongbu') 恐怖
+                                .swiper-slide
+                                    a(href='/m/movies?cat=xuanyi') 悬疑
+                                .swiper-slide
+                                    a(href='/m/movies?cat=zhuanji') 传记
+                                .swiper-slide
+                                    a(href='/m/movies?cat=maoxian') 冒险
+                                .swiper-slide
+                                    a(href='/m/movies?cat=zainan') 灾难
+                                .swiper-slide
+                                    a(href='/m/movies?cat=qinqing') 亲情
+                                .swiper-slide
+                                    a(href='/m/movies?cat=jingsong') 惊悚
+                                .swiper-slide
+                                    a(href='/m/movies?cat=mohuan') 魔幻
+                    #part.part
+                        .part-info 类型:
+                        .swiper-part
+                            .swiper-wrapper
+                                .swiper-slide
+                                    a.active(href='/m/all') 全部
+                                .swiper-slide
+                                    a(href='/m/date?year=2016') 2016
+                                .swiper-slide
+                                    a(href='/m/date?year=2015') 2015
+                                .swiper-slide
+                                    a(href='/m/date?year=2014') 2014
+                                .swiper-slide
+                                    a(href='/m/date?year=2013') 2013
+                                .swiper-slide
+                                    a(href='/m/date?year=2012') 2012
+                                .swiper-slide
+                                    a(href='/m/date?year=2011') 2011
+                                .swiper-slide
+                                    a(href='/m/date?year=2010') 2010
+                                .swiper-slide
+                                    a(href='/m/date?year=2009') 2009
+                                .swiper-slide
+                                    a(href='/m/date?year=2008') 2008
+                                .swiper-slide
+                                    a(href='/m/date?year=2007') 2007
+                                .swiper-slide
+                                    a(href='/m/date?start=2000&end=2006') 00年代
+                                .swiper-slide
+                                    a(href='/m/date?start=1990&end=1999') 90年代
+                                .swiper-slide
+                                    a(href='/m/date?start=1964&end=1989') 更早
+                    .movie-content.border-box.clear-fix
+                        section.cate-box
+                            .cate-body.clear-fix#load
+                                if movies && movies.length>0
+                                    each item in movies
+                                        a(href='/m/movie/#{item._id}').mov-box
+                                            span.border-box.a_img
+                                                if item.poster.indexOf('http')> -1
+                                                    i.img_container(style="background-image: url('#{item.mPoster}'); background-repeat: no-repeat; background-size:auto  100%; background-position: center center")
+                                                else
+                                                    i.img_container(style="background-image: url('/upload/#{item.poster}'); background-repeat: no-repeat; background-size: 100%; background-position: center center")
+                                            span.cate-tit.border-box
+                                                h2 #{item.title}
+                                                p #{item.hotword}
+
+
+                    .loadingMore#loadMore 点击加载更多
+
+                    .footer
+                        p 2016 © 由阿里云提供服务
+        script(type='text/javascript', src='//g.alicdn.com/sj/lib/zepto/zepto.min.js', charset='utf-8')
+        script.
+            $.config = {router: false};
+        script(type='text/javascript', src='//g.alicdn.com/msui/sm/0.6.2/js/sm.min.js', charset='utf-8')
+        script(type='text/javascript', src='//g.alicdn.com/msui/sm/0.6.2/js/sm-extend.min.js', charset='utf-8')
+        script(type='text/javascript',src='/js/swiper.min.js')
+        script(type='text/javascript',src='/js/touch.js')
+        script(type='text/javascript',src='/js/mAll.js')

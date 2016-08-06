@@ -1,0 +1,39 @@
+#header
+  .header_wrapper
+    a(href="/")
+      .logo
+    .user_group
+      .search_bar
+        .input
+          form.clearfix.form(action='/search',method='GET')
+            input#input.input_text(name='q', type='text', maxlength='30', placeholder='请输入你想要的影片',autocomplete="off")
+            input.input_button( type='submit', value='')
+        .ext
+      .user
+        .nav_top
+          ul
+            li
+              a(href='/') 首页
+            li
+              a(href='/all?movie=all&p=0') 分类
+            li
+              a(href='/piaofang') 票房
+        if user
+          .load
+              .showuser
+                a.showuser-pic(href='/user/#{user._id}?p=0',title="#{user.name}")
+                  if user.pic.length>1
+                    img(src="/upload/#{user.pic}", alt="#{user.name}")
+                  else
+                    img(src="/images/moren.png", alt="#{user.name}")
+                div.user-group
+                  a#login_username(href='/user/#{user._id}?p=0',title="#{user.name}",data-colid="#{user._id}") #{user.name}
+                  ul
+                    li
+                      a(href='/user/#{user._id}?p=0',title="#{user.name}") 我的收藏
+                    li
+                      a(href='/logout') 登出
+        else
+          .no-load
+            a(href='/signin') 登录
+            a(href='/register') 注册

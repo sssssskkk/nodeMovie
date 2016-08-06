@@ -1,0 +1,105 @@
+extends ../mlayout
+block css
+      script.
+        (function(){
+          var href=window.location.href.split('/').pop();
+          var device=window.navigator.userAgent;
+          var reg=/(nokia|iphone|android|ipad|motorola|^mot\-|softbank|foma|docomo|kddi|up\.browser|up\.link|htc|dopod|blazer|netfront|helio|hosin|huawei|novarra|CoolPad|webos|techfaith|palmsource|blackberry|alcatel|amoi|ktouch|nexian|samsung|^sam\-|s[cg]h|^lge|ericsson|philips|sagem|wellcom|bunjalloo|maui|symbian|smartphone|midp|wap|phone|windows ce|iemobile|^spice|^bird|^zte\-|longcos|pantech|gionee|^sie\-|portalmmm|jig\s browser|hiptop|^ucweb|^benq|haier|^lct|opera\s*mobi|opera\*mini|320x320|240x320|176x220)/i
+          if(reg.test(device)){
+          window.location.href='/m/index';
+          }
+        })()
+      link(rel='stylesheet', href='/css/piaofang.css')
+block content
+    include ../includes/header
+    #body.clearfix
+      .hot.clearfix
+        .h1-title
+          h1 正在热映
+        .hot_con.clearfix
+          if nows && nows.length>0
+            each now in nows
+              dl
+                dt
+                  .dt-mask
+                    p 导演：#{now.director}
+                    p 主演：#{now.actors}
+                    p 类型：#{now.genres}
+                    p 国家：#{now.country}
+                    p 版本：#{now.version}
+                    p 时长：#{now.long}
+                  img(src='#{now.poster}', alt='海报')
+                dd
+                  p #{now.title}
+                  span #{now.time}
+      .new
+        .h1-title
+          h1 即将上映
+        .new_con.clearfix
+          if wills && wills.length>0
+            each will in wills
+              dl
+                dt
+                  .dt-mask
+                    p 导演：#{will.director}
+                    p 主演：#{will.actors}
+                    p 类型：#{will.genres}
+                    p 国家：#{will.country}
+                    p 版本：#{will.version}
+                    p 时长：#{will.long}
+                  img(src='#{will.poster}', alt='海报')
+                dd
+                  p #{will.title}
+                  span #{will.time}
+      .friend
+        .h1-title
+          h1 友情链接
+        .cinema
+          dl
+            dt
+              a(href='http://www.wandafilm.com/',target="_blank")
+                img(src='/images/wanda.jpg', alt='万达电影')
+            dd
+              p 万达电影
+          dl
+            dt
+              a(href='http://www.gewara.com/index.xhtml',target="_blank")
+                img(src='/images/gewala.jpg', alt='格瓦拉生活网')
+            dd
+              p 格瓦拉生活网
+          dl
+            dt
+              a(href='http://www.mtime.com/',target="_blank")
+                img(src='/images/shiguang.jpg', alt='时光网')
+            dd
+              p 时光网
+          dl
+            dt
+              a(href='https://www.nuomi.com/',target="_blank")
+                img(src='/images/baidu.jpg', alt='百度糯米')
+            dd
+              p 百度糯米
+          dl
+            dt
+              a(href='http://t.58.com/yc/',target="_blank")
+                img(src='/images/58tuangou.jpg', alt='58团购')
+            dd
+              p 58团购
+          dl
+            dt
+              a(href='http://www.wangpiao.com/',target="_blank")
+                img(src='/images/fengpiao.jpg', alt='网票网')
+            dd
+              p 网票网
+          dl
+            dt
+              a(href='http://www.maizuo.com/',target="_blank")
+                img(src='/images/maizuo.jpg', alt='卖座网')
+            dd
+              p 卖座网
+    include ../includes/footer
+block js
+      script(src='/js/jquery.min.js')
+      script(src='/js/piaofang.js')
+
+

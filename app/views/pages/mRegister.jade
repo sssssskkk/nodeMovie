@@ -1,0 +1,77 @@
+doctype html
+html
+  head
+    meta(charset='utf-8')
+    meta(http-equiv='X-UA-Compatible', content='IE=edge')
+    title #{title}
+    meta(name="keywords",content="用户注册")
+    meta(name="description",content="影院前线_用户注册")
+    meta(name='viewport', content='initial-scale=1, maximum-scale=1')
+    link(rel="shortcut icon",type="image/ico",href="/favicon/favicon.ico")
+    meta(name='apple-mobile-web-app-capable', content='yes')
+    meta(name='apple-mobile-web-app-status-bar-style', content='black')
+    script.
+      (function(){
+        var device=window.navigator.userAgent;
+        var reg=/(nokia|iphone|android|ipad|motorola|^mot\-|softbank|foma|docomo|kddi|up\.browser|up\.link|htc|dopod|blazer|netfront|helio|hosin|huawei|novarra|CoolPad|webos|techfaith|palmsource|blackberry|alcatel|amoi|ktouch|nexian|samsung|^sam\-|s[cg]h|^lge|ericsson|philips|sagem|wellcom|bunjalloo|maui|symbian|smartphone|midp|wap|phone|windows ce|iemobile|^spice|^bird|^zte\-|longcos|pantech|gionee|^sie\-|portalmmm|jig\s browser|hiptop|^ucweb|^benq|haier|^lct|opera\s*mobi|opera\*mini|320x320|240x320|176x220)/i
+        if(!reg.test(device)){
+        window.location.href='/register'
+        }
+      })()
+
+
+
+    link(rel='stylesheet', href='/css/swiper.min.css')
+    link(rel='stylesheet', href='//g.alicdn.com/msui/sm/0.6.2/css/sm.min.css')
+    link(rel='stylesheet', href='//g.alicdn.com/msui/sm/0.6.2/css/sm-extend.min.css')
+    link(rel='stylesheet', href='/css/mMain.css')
+    link(rel='stylesheet', href='/css/mRegister.css')
+  body
+    .page-group
+      .page.page-current
+        .header
+          .logo-wrap
+            a(href="/m/index")
+            .logo
+              img(src='/images/login_logo.png', alt='顶部背景图')
+          p 一个快速获取电影资源的网站
+        .content-wrap
+          .input-container
+            form#form(action='#')
+              ul
+                li
+                  .login-wrap
+                    i.username.u_left 用户名
+                    span.w_input
+                      input#user(type='text', name='user[name]',placeholder="请输入6-20位用户名",autocomplete='off')
+                li
+                  .login-wrap
+                    i.password.u_left 密码
+                    span.w_input
+                      input#psw(type='password', name='user[password]',placeholder="请输入6-20位密码",autocomplete='off')
+                li
+                  .login-wrap
+                    i.password.u_left 确认密码
+                    span.w_input
+                      input#rpsw(type='password', name='user[rpassword]',placeholder="请再次确认密码",autocomplete='off')
+                li
+                  .login-wrap
+                    i.password.u_left 邮箱
+                    span.w_input
+                      input#eMail(type='text', name='user[email]',placeholder="电子邮箱不能为空",autocomplete="off")
+              .click-area
+                .more
+                  span.register
+                    a(href='/m/login') 登录
+                #login
+                  button#submit(type='button') 立即注册
+        .footer
+          p @2016
+    script(type='text/javascript', src='//g.alicdn.com/sj/lib/zepto/zepto.min.js', charset='utf-8')
+    script.
+      $.config = {router: false};
+    script(type='text/javascript', src='//g.alicdn.com/msui/sm/0.6.2/js/sm.min.js', charset='utf-8')
+    script(type='text/javascript', src='//g.alicdn.com/msui/sm/0.6.2/js/sm-extend.min.js', charset='utf-8')
+    script(src='/js/swiper.min.js')
+    script(src='/js/touch.js')
+    script(src='/js/mRegister.js')
